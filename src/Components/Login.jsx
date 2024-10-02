@@ -5,7 +5,8 @@ import { useDispatch } from 'react-redux';
 import { Button, Input } from './component';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
-
+import databaseService from '../appwrite/databaseService';
+import { makeCollection } from '../redux/collectionSlice';
 
 
 const Login = () => {
@@ -21,8 +22,12 @@ const Login = () => {
       if (session) {
         const userData = await authService.getCurrentUser();
         console.log('userData: ', userData);
-        if (userData) {
-          dispatch(reduxLogin(userData));
+        if (userData) dispatch(reduxLogin(userData));
+
+        const collectionData = await databaseService.get_collections_id(userData.$id);
+        if(collectionData) {
+          console.log("collection data: ", collectionData);
+          dispatch(makeCollection(collectionData));
         }
       }
       navigate('/');

@@ -2,6 +2,7 @@ import React from 'react';
 import authService from '../../appwrite/authService';
 import { logout } from '../../redux/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { removeCollection } from '../../redux/collectionSlice';
 
 
 const logoutBtn = () => {
@@ -12,6 +13,7 @@ const logoutBtn = () => {
         // console.log(userData);
         authService.logout()
         .then(() => dispatch(logout())) // this will delete all sessions across all devices... improve it
+        .then(() => dispatch(removeCollection()));
     }
     return (
         <button

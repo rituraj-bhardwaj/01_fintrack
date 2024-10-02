@@ -16,7 +16,7 @@ const Protected = ({childern, authentication = true}) => {
         setLoader(false)
         
     }, [authStatus, navigate])
-    console.log("loader ", loader);
+    // console.log("loader ", loader);
 
 
   return loader ? <h1>loading...</h1> : <>{childern} </>;
