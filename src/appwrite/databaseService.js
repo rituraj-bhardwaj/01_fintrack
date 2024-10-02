@@ -235,3 +235,24 @@ async function update_collections_id({user_id, this_collection_id, actual_exp_id
         return error;
     }
 }
+
+
+const databaseService = {
+    createUserInfo,
+    getUserInfo,
+    updateUserInfo,
+    createIncome,
+    getIncome,
+    updateIncome,
+    plan_categoryWise_exp,
+    get_planned_categoryWise_exp,
+    update_planned_categoryWise_exp,
+    create_actual_exp,
+    get_actual_exp,
+    update_actual_exp,
+    create_collections_id,
+    get_collections_id,
+    update_collections_id
+}
+
+export default databaseService;
