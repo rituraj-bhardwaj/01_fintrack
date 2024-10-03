@@ -39,7 +39,7 @@ const Header = () => {
     },
     
     {
-      name: "plan Budget",
+      name: "Update Budget",
       url: "/plan-budget",
       active: authStatus,
     },

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import databaseService from '../appwrite/databaseService';
 import { makeCollection } from '../redux/collectionSlice';
 
+
 const Signup = () => {
     const [error, setError] = useState("");
     const {register, handleSubmit} = useForm();
@@ -34,7 +35,7 @@ const Signup = () => {
                 // console.log(userData)
                 const res1 = await databaseService.createUserInfo({user_id, name, email})
                 console.log("res1:", res1);
-                navigate('/');
+                // navigate('/');
 
                 const res2 = await databaseService.createIncome({user_id, monthly_income});
                 console.log("res2: ", res2);
@@ -49,6 +50,8 @@ const Signup = () => {
                 const res5 = await databaseService.create_collections_id({user_id, actual_exp_id, income_id, planned_category_exp_id})
                 console.log("res5: ", res5);
                 if(res5) dispatch(makeCollection(res5));
+
+                navigate('/plan-budget', { state: {userData}});
             }
         } catch (error) {
             setError(error.message);

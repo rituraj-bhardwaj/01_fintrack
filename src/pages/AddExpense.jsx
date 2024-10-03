@@ -8,8 +8,11 @@ import { useSelector } from "react-redux";
 const AddExpense = () => {
   const [error, setError] = useState("");
   const {register, handleSubmit} = useForm();
+  const navigate = useNavigate();
+
+  var user_id;
   const userData = useSelector((state) => state.auth.userData);
-  const user_id = userData.$id;
+  if(userData) user_id = userData.$id;
 
   const addExpense = async (expense) => {
     setError("");
@@ -39,21 +42,23 @@ const AddExpense = () => {
       const update = await databaseService.update_actual_exp({user_id, actual_exp_id, fixed_exp, food_exp, transport_exp, entertainment_exp, shopping_exp, healthcare_exp, total_exp});
       if(update) console.log("success: ", update);
     }
+
+    navigate('/');
     // this data will be updated in actual_exp collection
     // {user_id, actual_exp_id, fixed_exp, food_exp, transport_exp, entertainment_exp, shopping_exp, healthcare_exp, total_exp}
   }
 
 
   return (
-    <div className="flex items-center justify-center p-8">
+    <div className="flex items-center bg-gray-100 justify-center p-8">
       <div
-        className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
+        className={`mx-auto w-full max-w-3xl bg-gray-100 rounded-xl p-10 border-2 border-gray-300`}
       >
-        <h2 className="text-gray-700 text-2xl mb-4">Enter maximum target expenses in each categories:</h2>
+        <h2 className="text-gray-700 text-4xl mb-4">Enter expenses in each categories:</h2>
         {/* if any error then show error */}
         {error && <P className="text-red-600 mt-8 text-center">{error}</P>}
 
-        <form onSubmit={handleSubmit(addExpense)}>
+        <form onSubmit={handleSubmit(addExpense)} className="w-full">
           <div className="space-y-5">
             <Input
               label="1. Fixed Expenses(Rent + Insurance + Education + Loan)* "
