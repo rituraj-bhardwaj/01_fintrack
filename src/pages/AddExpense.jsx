@@ -26,6 +26,7 @@ const AddExpense = () => {
 
     const collectionData = await databaseService.get_collections_id(user_id);
     if(collectionData) {
+      console.log("collection: ", collectionData);
       const actual_exp_id = collectionData.actual_exp_id;
 
       const expenseData = await databaseService.get_actual_exp(actual_exp_id);

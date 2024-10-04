@@ -9,13 +9,14 @@ const PieChart = ({incomeData, expenseData}) => {
 
   const income = incomeData.monthly_income || 50;
   const saving =  income - expenseData.total_exp || 50;
+  const expense = expenseData.total_exp;
   // console.log(income, saving);
   const data = {
     labels: ['Saving', 'Expense'],
     datasets: [
       {
         label: 'Amount (INR)',
-        data: [saving, income],
+        data: [saving, expense],
         backgroundColor: ['#36A2EB', '#FFCE56'],
         hoverBackgroundColor: ['#36A2EB', '#FFCE56'],
         borderColor: '#6B7280',
