@@ -39,15 +39,15 @@ const Landing = () => {
       </div>
       
       <div className='w-full h-2/5 flex justify-around items-center '>
-          <div className='w-1/4 h-4/5 bg-gray-100 rounded-lg hover:scale-110 transition-transform duration-300'>
+          <div className='w-1/4 h-4/5 bg-gray-100 rounded-lg shadow-lg hover:scale-110 transition-transform duration-300'>
             <h1 className='text-gray-800 text-3xl p-4'>Easy Tracking:</h1>
             <p className='text-gray-600 p-4'>Visualize your financial habits through intuitive pie charts and bar charts. Monitor your planned vs. actual expenses and make smarter decisions to stay on target.</p>
           </div>
-          <div className='w-1/4 h-4/5 bg-gray-100 rounded-lg hover:scale-110 transition-transform duration-300'>
+          <div className='w-1/4 h-4/5 bg-gray-100 rounded-lg shadow-lg hover:scale-110 transition-transform duration-300'>
             <h1 className='text-gray-800 text-3xl p-4'>Visual Insights:</h1>
             <p className='text-gray-600 p-4'>visualize your expenses and easily consider your next expense</p>
           </div>
-          <div className='w-1/4 h-4/5 bg-gray-100 rounded-lg hover:scale-110 transition-transform duration-300'>
+          <div className='w-1/4 h-4/5 bg-gray-100 rounded-lg shadow-lg hover:scale-110 transition-transform duration-300'>
             <h1 className='text-gray-800 text-3xl p-4'>Budgeting made easy:</h1>
             <p className='text-gray-600 p-4'>tackling out your budgeting problem will make your budgeting problem easier for you </p>
           </div>

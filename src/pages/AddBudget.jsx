@@ -14,8 +14,7 @@ const AddBudget = () => {
   const {register, handleSubmit} = useForm();
   // useSelector((state) => {setUserData(state.auth.userData)});
   var user_id;
-  // const userData = useSelector((state) => state.auth.userData);
-  const userData = location.state?.userData;
+  const userData = location.state?.userData || useSelector((state) => state.auth.userData);;
   if(userData) user_id = userData.$id;
   console.log(userData, user_id);
 

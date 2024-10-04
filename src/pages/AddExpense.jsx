@@ -44,8 +44,6 @@ const AddExpense = () => {
     }
 
     navigate('/');
-    // this data will be updated in actual_exp collection
-    // {user_id, actual_exp_id, fixed_exp, food_exp, transport_exp, entertainment_exp, shopping_exp, healthcare_exp, total_exp}
   }
 
 

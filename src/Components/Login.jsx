@@ -13,14 +13,16 @@ const Login = () => {
   const dispatch = useDispatch();
   const { register, handleSubmit } = useForm();
   const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const login = async (userInfo) => {
     setError("");
+    setLoading(true);
     try {
       const session = await authService.login(userInfo);
       if (session) {
-        const userData = await authService.getCurrentUser();
+        var userData = await authService.getCurrentUser();
         console.log('userData: ', userData);
         if (userData) dispatch(reduxLogin(userData));
 
@@ -29,10 +31,14 @@ const Login = () => {
           console.log("collection data: ", collectionData);
           dispatch(makeCollection(collectionData));
         }
+
+        navigate('/', { state: {userData}});
       }
-      navigate('/');
+      
     } catch (error) {
       setError(error.message);
+    } finally {
+      setLoading(false); 
     }
   }
 
@@ -59,6 +65,13 @@ const Login = () => {
         </p>
         {/* if any error occured then to show error */}
         {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+
+        {/* Step 3: Show loading animation */}
+        {loading && (
+          <div className="flex justify-center mt-4">
+            <div className="loader"></div> {/* Placeholder for your loading animation */}
+          </div>
+        )}
 
 
         <form onSubmit={handleSubmit(login)} className='mt-8'>
