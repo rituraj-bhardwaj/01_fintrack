@@ -7,16 +7,18 @@ import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import databaseService from "../appwrite/databaseService";
 import { makeCollection } from "../redux/collectionSlice";
+import { Loader } from "./component";
 
 const Signup = () => {
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
     const { register, handleSubmit } = useForm();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const signup = async (userInfo) => {
-        console.log(userInfo);
         setError("");
+        setLoading(true);
 
         const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         if (!emailRegex.test(userInfo.email)) {
@@ -106,11 +108,14 @@ const Signup = () => {
             }
         } catch (error) {
             setError(error.message);
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
         <div className="flex items-center justify-center">
+            {loading && <Loader />}
             <div
                 className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}
             >
@@ -133,9 +138,9 @@ const Signup = () => {
                     </Link>
                 </p>
                 {/* if any error then show error */}
-                {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+                {error && <p className="text-red-600 m-4 text-center">{error}</p>}
 
-                <form onSubmit={handleSubmit(signup)}>
+                <form onSubmit={handleSubmit(signup)} className="mt-8">
                     <div className="space-y-5">
                         <Input
                             label="Full Name: "

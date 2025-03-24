@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import authService from '../appwrite/authService';
 import { login as reduxLogin } from '../redux/authSlice';
 import { useDispatch } from 'react-redux';
-import { Button, Input } from './component';
+import { Button, Input, Loader } from './component';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import databaseService from '../appwrite/databaseService';
@@ -44,6 +44,8 @@ const Login = () => {
 
   return (
     <div className='flex items-center justify-center w-full'>
+      {loading && <Loader />}
+
       <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
         {/* logo */}
         <div className="mb-2 flex justify-center">
@@ -63,15 +65,9 @@ const Login = () => {
             Sign Up
           </Link>
         </p>
-        {/* if any error occured then to show error */}
-        {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
 
-        {/* Step 3: Show loading animation */}
-        {loading && (
-          <div className="flex justify-center mt-4">
-            <div className="loader"></div> {/* Placeholder for your loading animation */}
-          </div>
-        )}
+        {/* if any error occured then to show error */}
+        {error && <p className="text-red-600 m-4 text-center">{error}</p>}
 
 
         <form onSubmit={handleSubmit(login)} className='mt-8'>

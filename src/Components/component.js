@@ -8,6 +8,7 @@ import Input from "./Input";
 import Login from './Login';
 import Select from './Select';
 import Signup from './Signup';
+import Loader from "./Loader/Loader";
 
 
 export {
@@ -20,5 +21,6 @@ export {
     Input,
     Login,
     Select,
-    Signup
+    Signup,
+    Loader
 }
