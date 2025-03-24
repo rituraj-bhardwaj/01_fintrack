@@ -11,29 +11,38 @@ const account = new Account(client);
 
 async function createAccount ({email, password, fullName}) {
     try {
-        console.log(fullName);
-        const userAccount = await account.create(ID.unique(), email, password, fullName)
-        console.log('account created');
+        // first check if user already exist.
+        const userAccount = await account.create(ID.unique(), email, password, fullName);
         if(userAccount) {
-            console.log('login initiated')
             return login({email, password});
         } else {
-            console.log('i am three')
             throw error;
         }
     } catch (err) {
-        console.log('i am error');
-        console.error(err);
+        if(err.type === "user_already_exists") {
+            throw new Error("A user with the same email already exists.");
+        } else if(err.type === "user_email_already_exists") {
+            throw new Error("A user with the same email already exists.");
+        } else if(err.type === "user_phone_already_exists") {
+            throw new Error("A user with the same phone number already exists.");
+        } else if(err.type === "user_invalid_credentials") {
+            throw new Error("Please provide valid credentials.");
+        }
+        throw new Error("Something went wrong, try again!");
     }
 }
 
 async function login ({email, password}) {
     try {
         const response = await account.createEmailPasswordSession(email, password);
-        // console.log("loged in: ",response);
         return response;
     } catch (error) {
         console.error(error);
+        console.error(error.type);
+        console.error(error.message);
+        if(error.type === "user_invalid_credentials") {
+            throw new Error("Invalid credentials. Please check the email and password.");
+        }
     }
 }
 
@@ -49,7 +58,6 @@ async function getCurrentUser() {
 async function logout (sessionId) {
     try {
         const result = await account.deleteSessions();
-        console.log(result);
         return result;
     } catch (error) {
         console.error(error);

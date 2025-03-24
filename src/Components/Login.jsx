@@ -23,12 +23,12 @@ const Login = () => {
       const session = await authService.login(userInfo);
       if (session) {
         var userData = await authService.getCurrentUser();
-        console.log('userData: ', userData);
+        // console.log('userData: ', userData);
         if (userData) dispatch(reduxLogin(userData));
 
         const collectionData = await databaseService.get_collections_id(userData.$id);
         if(collectionData) {
-          console.log("collection data: ", collectionData);
+          // console.log("collection data: ", collectionData);
           dispatch(makeCollection(collectionData));
         }
 

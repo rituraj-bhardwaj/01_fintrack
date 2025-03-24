@@ -30,7 +30,7 @@ function App() {
         <main className='w-3/4 mx-auto'>
           <Outlet />
         </main>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   ) : null
