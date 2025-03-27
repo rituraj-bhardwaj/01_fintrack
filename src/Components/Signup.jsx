@@ -18,21 +18,21 @@ const Signup = () => {
 
     const signup = async (userInfo) => {
         setError("");
-        setLoading(true);
+        // setLoading(true);
 
         const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
         if (!emailRegex.test(userInfo.email)) {
-            console.log("email invalid");
             setError("Please provide a valid email.");
+            // setLoading(false);
             return;
         } else if (userInfo.password.length < 8) {
             setError("Password should be at least 8 characters long.");
+            // setLoading(false);
             return;
-        } else {
-            setError("");
         }
 
         try {
+            setLoading(true);
             // first check does user already exist.
             const response = await authService.createAccount(userInfo);
             console.log(response);
@@ -52,21 +52,16 @@ const Signup = () => {
                     healthcare_exp = 0,
                     total_exp = 0;
 
-                // console.log(userData.$id, user_id);
-                // console.log(userData)
                 const res1 = await databaseService.createUserInfo({
                     user_id,
                     name,
                     email,
                 });
-                // console.log("res1:", res1);
-                // navigate('/');
 
                 const res2 = await databaseService.createIncome({
                     user_id,
                     monthly_income,
                 });
-                // console.log("res2: ", res2);
 
                 const res3 = await databaseService.create_actual_exp({
                     user_id,
@@ -78,7 +73,6 @@ const Signup = () => {
                     healthcare_exp,
                     total_exp,
                 });
-                // console.log("res3: ", res3);
 
                 const res4 = await databaseService.plan_categoryWise_exp({
                     user_id,
@@ -90,7 +84,6 @@ const Signup = () => {
                     healthcare_exp,
                     total_exp,
                 });
-                // console.log("res4: ", res4);
 
                 const actual_exp_id = res3.actual_exp_id,
                     income_id = res2.income_id,
@@ -101,7 +94,6 @@ const Signup = () => {
                     income_id,
                     planned_category_exp_id,
                 });
-                // console.log("res5: ", res5);
                 if (res5) dispatch(makeCollection(res5));
 
                 navigate("/plan-budget", { state: { userData } });
